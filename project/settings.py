@@ -7,7 +7,8 @@ SECRET_KEY = 'your-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://aite-salem.onrender.com', '127.0.0.1', 'localhost']
+
 
 INSTALLED_APPS = [
     'network',
