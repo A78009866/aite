@@ -191,3 +191,7 @@ def edit_profile(request):
         form = ProfileUpdateForm(instance=request.user.profile)
 
     return render(request, 'network/edit_profile.html', {'form': form})
+from django.shortcuts import render
+
+def splash(request):
+    return render(request, 'splash.html')
