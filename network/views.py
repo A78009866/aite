@@ -143,7 +143,7 @@ def reject_friend_request(request, request_id):
 
 @login_required
 def friend_requests(request):
-    requests = FriendRequest.objects.filter(to_user=request.user)
+    requests = FriendRequest.objects.filter(receiver=request.user)
     return render(request, "network/friend_requests.html", {"requests": requests})
 
 @login_required

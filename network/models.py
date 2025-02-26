@@ -33,8 +33,8 @@ class Like(models.Model):
 class FriendRequest(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_requests")
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="received_requests")
-    timestamp = models.DateTimeField(auto_now_add=True)
     accepted = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Friend request from {self.sender.username} to {self.receiver.username}"
