@@ -195,3 +195,8 @@ from django.shortcuts import render
 
 def splash(request):
     return render(request, 'splash.html')
+
+from django.shortcuts import render
+
+def users(request):
+    return render(request, 'network/users.html')

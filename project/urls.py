@@ -10,6 +10,13 @@ urlpatterns = [
       path('index/', views.index, name='index'),
         # جعل الصفحة الرئيسية في مسار مختلف
 ]
+from django.urls import path
+from network import views  # تأكد من أنك تستورد views بشكل صحيح
+
+urlpatterns = [
+    path('users/', views.users, name='users'),  # تأكد من أن لديك هذا السطر
+]
+
 
 # إضافة مسار لخدمة الوسائط (Media)
 if settings.DEBUG:
