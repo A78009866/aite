@@ -2,6 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from . import views
+from django.contrib.auth import views as auth_views
+from django.urls import path
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,7 +14,7 @@ urlpatterns = [
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('edit_comment/<int:comment_id>/', views.edit_comment, name='edit_comment'),
     path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),  # تأكد من وجود هذا المسار
     path('register/', views.register, name='register'),
     path('users/', views.users_list, name='users'),
     path('send_friend_request/<int:user_id>/', views.send_friend_request, name='send_friend_request'),
