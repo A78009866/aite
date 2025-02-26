@@ -25,6 +25,14 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),  
     path('splash/', views.splash, name='splash'),
 ]
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

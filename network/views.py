@@ -170,11 +170,24 @@ def message_list(request):
 
 # ... (الدوال الأخرى تبقى كما هي)
 
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Profile
+from .forms import ProfileUpdateForm
+
 @login_required
-def profile(request):
-    return render(request, 'network/profile.html')
+def profile(request, username):
+    user_profile = get_object_or_404(Profile, user__username=username)
+    return render(request, 'network/profile.html', {'profile': user_profile})
 
-from django.shortcuts import render
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', username=request.user.username)
+    else:
+        form = ProfileUpdateForm(instance=request.user.profile)
 
-def splash(request):
-    return render(request, 'splash.html')  # تأكد من أن لديك ملف splash.html في templates
+    return render(request, 'network/edit_profile.html', {'form': form})

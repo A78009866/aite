@@ -47,3 +47,16 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender.username} to {self.receiver.username}"
+from django.contrib.auth.models import User
+from django.db import models
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics/', default='default_profile.jpg')
+    cover_photo = models.ImageField(upload_to='cover_photos/', default='default_cover.jpg')
+    bio = models.TextField(blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    friends = models.ManyToManyField("self", blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
