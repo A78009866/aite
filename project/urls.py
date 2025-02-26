@@ -8,13 +8,8 @@ urlpatterns = [
       path('', views.splash, name='splash'),
       path('', include('network.urls')),  # تغيير الصفحة الرئيسية إلى splash
       path('index/', views.index, name='index'),
+      path('users/', views.users, name='users'),
         # جعل الصفحة الرئيسية في مسار مختلف
-]
-from django.urls import path
-from network import views  # تأكد من أنك تستورد views بشكل صحيح
-
-urlpatterns = [
-    path('users/', views.users, name='users'),  # تأكد من أن لديك هذا السطر
 ]
 
 
