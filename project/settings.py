@@ -92,7 +92,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # إعدادات الوسائط (Media)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 AUTH_USER_MODEL = 'network.User'
 
@@ -117,6 +118,7 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
