@@ -46,7 +46,8 @@ body {
 }
 
 .navbar .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(255, 254, 254);
+    color: #333;
 }
 
 /* ✅ تحسين القوائم والحاويات */
@@ -69,6 +70,18 @@ body {
     border: none;
     cursor: pointer;
     color: #fff;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0a0a0a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .btn-primary {
@@ -143,7 +156,7 @@ input:focus, textarea:focus {
 
 .post .post-header {
     font-weight: bold;
-    color: #007bff;
+    color: #5b5b5c;
 }
 
 .post .post-content {
@@ -292,6 +305,7 @@ input:focus, textarea:focus {
     text-align: center;
     margin-bottom: 20px;
 }
+
 .btn-danger {
     background-color: #dc3545;
     border: none;
@@ -304,4 +318,136 @@ input:focus, textarea:focus {
 .btn-danger:hover {
     background-color: #c82333;
     transform: scale(1.05);
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    max-width: 70%;
+}
+
+.message.sent {
+    background-color: #dcf8c6;
+    margin-left: auto;
+}
+
+.message.received {
+    background-color: #f1f0f0;
+    margin-right: auto;
+}
+
+.message small {
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* ✅ تصميم الصور داخل المنشورات */
+.post-image-container {
+    margin-top: 15px;
+}
+
+.post-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* تنسيقات أزرار التفاعل */
+.d-flex.justify-content-between.align-items-center {
+    gap: 10px;
+}
+
+/* زر الحذف (أقصى اليسار) */
+.delete-post-form {
+    margin-left: auto;
+}
+
+/* زر التعليقات (في الوسط) */
+button[data-bs-toggle="collapse"] {
+    margin: 0 auto;
+}
+
+/* زر الإعجاب (أقصى اليمين) */
+.like-post-form {
+    margin-right: auto;
+}
+
+/* ✅ تنسيقات الصور داخل المنشورات */
+.post-image-container {
+    margin-top: 15px;
+}
+
+.post-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ تنسيقات عدد الإعجابات */
+.like-count {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ✅ تنسيقات التعليقات الجديدة */
+.comment-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.comment-actions a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.comment-actions a:hover {
+    color: #007bff;
+}
+
+.comment-actions i {
+    margin-right: 5px;
+}
+
+/* ✅ تنسيقات الأيقونات */
+.fas {
+    margin-right: 5px;
+}
+
+/* ✅ تنسيقات الأزرار الصغيرة */
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+/* ✅ تنسيقات الأجهزة الصغيرة */
+@media (max-width: 600px) {
+    .comment-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .comment-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ✅ تنسيقات صورة البروفيل */
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }

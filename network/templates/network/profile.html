@@ -1,0 +1,21 @@
+{% extends 'network/layout.html' %}
+{% load static %}  <!-- تحميل مكتبة الوسائط الثابتة -->
+
+{% block body %}
+<div class="container">
+    <h2>البروفيل</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="صورة البروفيل" class="profile-picture me-3">
+                {% else %}
+                    <img src="{% static 'network/default_profile.png' %}" alt="صورة افتراضية" class="profile-picture me-3">
+                {% endif %}
+                <h3>{{ user.username }}</h3>
+            </div>
+            <a href="{% url 'update_profile' %}" class="btn btn-primary">تحديث البروفيل</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
