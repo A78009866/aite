@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-from . import views
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -14,7 +13,7 @@ urlpatterns = [
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('edit_comment/<int:comment_id>/', views.edit_comment, name='edit_comment'),
     path('login/', views.login_view, name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),  # تأكد من وجود هذا المسار
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),  
     path('register/', views.register, name='register'),
     path('users/', views.users_list, name='users'),
     path('send_friend_request/<int:user_id>/', views.send_friend_request, name='send_friend_request'),
@@ -24,17 +23,10 @@ urlpatterns = [
     path('send_message/<int:user_id>/', views.send_message, name='send_message'),
     path('messages/<int:user_id>/', views.messages, name='messages'),
     path('message_list/', views.message_list, name='message_list'),
-    path('profile/', views.profile, name='profile'),  
-    path('splash/', views.splash, name='splash'),
-]
-from django.urls import path
-from . import views
-
-urlpatterns = [
     path('profile/<str:username>/', views.profile, name='profile'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('splash/', views.splash, name='splash'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
