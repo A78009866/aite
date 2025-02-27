@@ -18,19 +18,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-<<<<<<< HEAD
-=======
     'cloudinary',
     'cloudinary_storage',
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-<<<<<<< HEAD
-=======
     "whitenoise.middleware.WhiteNoiseMiddleware",
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,10 +56,6 @@ ASGI_APPLICATION = 'project.asgi.application'
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-=======
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'aite',
         'USER': 'aite_user',
@@ -75,7 +65,6 @@ DATABASES = {
         'OPTIONS': {
             'client_encoding': 'UTF8',
         }
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
     }
 }
 
@@ -96,19 +85,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'network/static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-import os
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 # إعدادات الوسائط (Media)
 MEDIA_URL = '/media/'
-<<<<<<< HEAD
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-=======
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
 
 AUTH_USER_MODEL = 'network.User'
 
@@ -116,37 +95,19 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
-<<<<<<< HEAD
 }
-=======
-}
-import os
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'network/static')
-]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'duixjs8az'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY', '143978951428697'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'ENvvZcFPyEqpQdt3iSqsO5r51LQ'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
