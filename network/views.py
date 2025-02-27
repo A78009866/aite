@@ -50,6 +50,8 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
+import cloudinary.uploader
+
 @login_required
 def add_post(request):
     if request.method == "POST":
@@ -57,12 +59,18 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
-            post.save()
-            return redirect("index")
+
+            # إذا كان هناك ملف مرفق (صورة)، قم برفعه إلى Cloudinary
+            if 'image' in request.FILES:
+                image_file = request.FILES['image']
+                upload_result = cloudinary.uploader.upload(image_file)
+                post.image_url = upload_result['secure_url']  # حفظ رابط الصورة من Cloudinary
+
+            post.save()  # حفظ المنشور في قاعدة البيانات
+            return redirect('index')
     else:
         form = PostForm()
-    return render(request, "network/index.html", {'form': form})
-
+    return render(request, 'network/index.html', {'form': form})
 @login_required
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, user=request.user)
