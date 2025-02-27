@@ -123,9 +123,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'duixjs8az',
-    'API_KEY': '855567725718793',
-    'API_SECRET': 'ENvvZcFPyEqpQdt3iSqsO5r51LQ',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'duixjs8az'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '855567725718793'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'ENvvZcFPyEqpQdt3iSqsO5r51LQ'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
