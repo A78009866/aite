@@ -73,7 +73,7 @@ class Message(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    profile_picture = CloudinaryField('image', default='default_profile.jpg')  # استخدام CloudinaryField
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     cover_photo = CloudinaryField('image', default='default_cover.jpg')  # استخدام CloudinaryField
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)

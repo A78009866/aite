@@ -18,8 +18,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'cloudinary',
-    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -98,16 +96,6 @@ CHANNEL_LAYERS = {
 }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'duixjs8az'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '143978951428697'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'ENvvZcFPyEqpQdt3iSqsO5r51LQ'),
-}
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 LOGOUT_REDIRECT_URL = '/'
