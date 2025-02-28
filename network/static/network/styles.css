@@ -432,6 +432,20 @@ button[data-bs-toggle="collapse"] {
 }
 
 /* ✅ تنسيقات الأجهزة الصغيرة */
+<<<<<<< HEAD
+@media (max-width: 600px) {
+    .comment-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .comment-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+=======
 /* ✅ ضبط موقع زر القائمة (Navbar Toggler) للأجهزة الصغيرة */
 /* ✅ جعل زر القائمة (Navbar Toggler) في أقصى اليسار للأجهزة الصغيرة */
 @media (max-width: 992px) {
@@ -448,6 +462,7 @@ button[data-bs-toggle="collapse"] {
 
 
 
+>>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
 /* ✅ تنسيقات صورة البروفيل */
 .profile-picture {
     width: 40px;

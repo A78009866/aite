@@ -1,16 +1,40 @@
+<<<<<<< HEAD
 {% extends 'network/layout.html' %}
+{% load static %}  <!-- تحميل مكتبة الوسائط الثابتة -->
 
 {% block body %}
 <div class="container">
-    <h2>الملف الشخصي</h2>
-    
-    <!-- عرض الصورة الشخصية -->
-    <img src="{{ user.profile_picture.url }}" alt="الصورة الشخصية" class="img-thumbnail" width="150">
-    
-    <p><strong>الاسم:</strong> {{ user.username }}</p>
-    <p><strong>البريد الإلكتروني:</strong> {{ user.email }}</p>
-
-    <a href="{% url 'update_profile' %}" class="btn btn-primary">تحديث الصورة الشخصية</a>
-    <a href="{% url 'change_password' %}" class="btn btn-warning">تغيير كلمة المرور</a>
+    <h2>البروفيل</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="صورة البروفيل" class="profile-picture me-3">
+                {% else %}
+                    <img src="{% static 'network/default_profile.png' %}" alt="صورة افتراضية" class="profile-picture me-3">
+                {% endif %}
+                <h3>{{ user.username }}</h3>
+            </div>
+            <a href="{% url 'update_profile' %}" class="btn btn-primary">تحديث البروفيل</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
+=======
+{% extends 'base.html' %}
+{% block content %}
+<div class="profile-header">
+    <img src="{{ profile.cover_photo.url }}" alt="Cover Photo" class="cover-photo">
+    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+</div>
+<div class="profile-details">
+    <h2>{{ profile.user.username }}</h2>
+    <p>{{ profile.bio }}</p>
+    <p>Location: {{ profile.location }}</p>
+    <p>Friends: {{ profile.friends.count }}</p>
+    {% if request.user == profile.user %}
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    {% endif %}
+</div>
+{% endblock %}
+>>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380

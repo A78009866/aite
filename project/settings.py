@@ -85,14 +85,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'network/static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-import os
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 # إعدادات الوسائط (Media)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'network.User'
 
@@ -101,30 +96,18 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
-import os
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'network/static')
-]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'duixjs8az',
-    'API_KEY': '855567725718793',
-    'API_SECRET': 'ENvvZcFPyEqpQdt3iSqsO5r51LQ',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'duixjs8az'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '143978951428697'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'ENvvZcFPyEqpQdt3iSqsO5r51LQ'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGOUT_REDIRECT_URL = '/'
