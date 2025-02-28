@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from cloudinary.models import CloudinaryField
+from django.conf import settings
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 class User(AbstractUser):
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)
-    profile_picture = CloudinaryField('image', null=True, blank=True)  # استخدام CloudinaryField
-
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='network_user_groups',
@@ -26,11 +28,22 @@ class User(AbstractUser):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     body = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)  # استخدام CloudinaryField
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)  # استبدال CloudinaryField بـ ImageField
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Post by {self.user.username} at {self.timestamp}"
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='cover_photos/', blank=True, null=True)  # استبدال CloudinaryField بـ ImageField
+    bio = models.TextField(blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    friends = models.ManyToManyField("self", blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
@@ -70,14 +83,3 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender.username} to {self.receiver.username}"
-
-class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-    cover_photo = CloudinaryField('image', default='default_cover.jpg')  # استخدام CloudinaryField
-    bio = models.TextField(blank=True)
-    location = models.CharField(max_length=100, blank=True)
-    friends = models.ManyToManyField("self", blank=True)
-
-    def __str__(self):
-        return f"{self.user.username}'s Profile"
