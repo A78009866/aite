@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User, Post, FriendRequest, Message, Like, Comment
 from .forms import PostForm
-import cloudinary.uploader
 
 def index(request):
     if not request.user.is_authenticated:
@@ -58,14 +57,7 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
-
-            # إذا كان هناك ملف مرفق (صورة)، قم برفعه إلى Cloudinary
-            if 'image' in request.FILES:
-                image_file = request.FILES['image']
-                upload_result = cloudinary.uploader.upload(image_file)
-                post.image_url = upload_result['secure_url']  # حفظ رابط الصورة من Cloudinary
-
-            post.save()  # حفظ المنشور في قاعدة البيانات
+            post.save()
             return redirect('index')
     else:
         form = PostForm()
