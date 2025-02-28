@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User, Post, FriendRequest, Message, Like, Comment
 from .forms import PostForm
+import cloudinary.uploader
 
 def index(request):
     if not request.user.is_authenticated:
@@ -50,11 +51,6 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
-<<<<<<< HEAD
-=======
-import cloudinary.uploader
-
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
 @login_required
 def add_post(request):
     if request.method == "POST":
@@ -62,14 +58,6 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
-<<<<<<< HEAD
-            post.save()
-            return redirect("index")
-    else:
-        form = PostForm()
-    return render(request, "network/index.html", {'form': form})
-
-=======
 
             # إذا كان هناك ملف مرفق (صورة)، قم برفعه إلى Cloudinary
             if 'image' in request.FILES:
@@ -82,7 +70,7 @@ def add_post(request):
     else:
         form = PostForm()
     return render(request, 'network/index.html', {'form': form})
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
+
 @login_required
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, user=request.user)
@@ -119,13 +107,13 @@ def add_comment(request, post_id):
     return JsonResponse({'success': False})
 
 @login_required
-def delete_comment(request, comment_id):  # جديد
+def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id, user=request.user)
     comment.delete()
     return redirect('index')
 
 @login_required
-def edit_comment(request, comment_id):  # جديد
+def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id, user=request.user)
     if request.method == "POST":
         body = request.POST.get("body")
@@ -163,11 +151,7 @@ def reject_friend_request(request, request_id):
 
 @login_required
 def friend_requests(request):
-<<<<<<< HEAD
-    requests = FriendRequest.objects.filter(to_user=request.user)
-=======
     requests = FriendRequest.objects.filter(receiver=request.user)
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
     return render(request, "network/friend_requests.html", {"requests": requests})
 
 @login_required
@@ -191,33 +175,6 @@ def messages(request, user_id):
 def message_list(request):
     users = User.objects.exclude(id=request.user.id)
     return render(request, 'network/message_list.html', {'users': users})
-<<<<<<< HEAD
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
-from .models import User, Post, FriendRequest, Message, Like, Comment
-from .forms import PostForm, ProfileUpdateForm  # جديد
-
-# ... (الدوال الأخرى تبقى كما هي)
-
-@login_required
-def profile(request):
-    return render(request, 'network/profile.html')
-
-@login_required
-def update_profile(request):
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    else:
-        form = ProfileUpdateForm(instance=request.user)
-    return render(request, 'network/update_profile.html', {'form': form})
-=======
-
-# ... (الدوال الأخرى تبقى كما هي)
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -240,13 +197,11 @@ def edit_profile(request):
         form = ProfileUpdateForm(instance=request.user.profile)
 
     return render(request, 'network/edit_profile.html', {'form': form})
+
 from django.shortcuts import render
 
 def splash(request):
     return render(request, 'splash.html')
 
-from django.shortcuts import render
-
 def users(request):
     return render(request, 'network/users.html')
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
