@@ -175,10 +175,11 @@ from .forms import ProfileUpdateForm
 
 from django.shortcuts import render
 from .models import Profile
+from .models import Profile
 
 def profile_view(request, username):
-    profile = Profile.objects.get(user__username=username)
-    return render(request, "profile.html", {"profile": profile})
+    profile = get_object_or_404(Profile, user__username=username)
+    return render(request, "network/profile.html", {"profile": profile})
 
 
 from django.shortcuts import render
