@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import profile_view
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -23,8 +24,7 @@ urlpatterns = [
     path('send_message/<int:user_id>/', views.send_message, name='send_message'),
     path('messages/<int:user_id>/', views.messages, name='messages'),
     path('message_list/', views.message_list, name='message_list'),
-    path('profile/<str:username>/', views.profile, name='profile'),  # تم الإبقاء على المسار الأفضل
-    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('profile/<str:username>/', profile_view, name='profile'),
     path('splash/', views.splash, name='splash'),
 ]
 

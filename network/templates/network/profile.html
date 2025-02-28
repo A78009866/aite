@@ -1,40 +1,28 @@
-<<<<<<< HEAD
-{% extends 'network/layout.html' %}
-{% load static %}  <!-- تحميل مكتبة الوسائط الثابتة -->
-
-{% block body %}
-<div class="container">
-    <h2>البروفيل</h2>
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-                {% if user.profile_picture %}
-                    <img src="{{ user.profile_picture.url }}" alt="صورة البروفيل" class="profile-picture me-3">
-                {% else %}
-                    <img src="{% static 'network/default_profile.png' %}" alt="صورة افتراضية" class="profile-picture me-3">
-                {% endif %}
-                <h3>{{ user.username }}</h3>
-            </div>
-            <a href="{% url 'update_profile' %}" class="btn btn-primary">تحديث البروفيل</a>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف المستخدم</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+    <div class="profile-card loading">
+        <div class="cover-wrapper skeleton"></div>
+        <div class="avatar-wrapper skeleton"></div>
+        <div class="profile-details">
+            <p class="user-name skeleton"></p>
+            <p class="user-title skeleton"></p>
+            <div class="separator"></div>
+            <p class="user-about skeleton"></p>
+        </div>
+        <div class="social-handles-wrapper skeleton">
+            <a href="#" class="icon bi bi-instagram"></a>
+            <a href="#" class="icon bi bi-twitter"></a>
+            <a href="#" class="icon bi bi-facebook"></a>
+            <a href="#" class="icon bi bi-youtube"></a>
         </div>
     </div>
-</div>
-{% endblock %}
-=======
-{% extends 'base.html' %}
-{% block content %}
-<div class="profile-header">
-    <img src="{{ profile.cover_photo.url }}" alt="Cover Photo" class="cover-photo">
-    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
-</div>
-<div class="profile-details">
-    <h2>{{ profile.user.username }}</h2>
-    <p>{{ profile.bio }}</p>
-    <p>Location: {{ profile.location }}</p>
-    <p>Friends: {{ profile.friends.count }}</p>
-    {% if request.user == profile.user %}
-        <a href="{% url 'edit_profile' %}">Edit Profile</a>
-    {% endif %}
-</div>
-{% endblock %}
->>>>>>> 2aa59cd686b20bd9b1ab5b8b7dda1a956fc18380
+    <script src="{% static 'js/profile.js' %}"></script>
+</body>
+</html>

@@ -173,22 +173,13 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import ProfileUpdateForm
 
-@login_required
-def profile(request, username):
-    user_profile = get_object_or_404(Profile, user__username=username)
-    return render(request, 'network/profile.html', {'profile': user_profile})
+from django.shortcuts import render
+from .models import Profile
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile', username=request.user.username)
-    else:
-        form = ProfileUpdateForm(instance=request.user.profile)
+def profile_view(request, username):
+    profile = Profile.objects.get(user__username=username)
+    return render(request, "profile.html", {"profile": profile})
 
-    return render(request, 'network/edit_profile.html', {'form': form})
 
 from django.shortcuts import render
 
