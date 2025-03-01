@@ -175,3 +175,21 @@ from .models import Video
 def videos(request):
     videos = Video.objects.all()
     return render(request, 'network/videos.html', {'videos': videos})
+
+from django.shortcuts import render, redirect
+from .models import Video
+from .forms import VideoUploadForm
+
+def videos(request):
+    videos = Video.objects.all()
+
+    if request.method == "POST":
+        form = VideoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('videos')  # إعادة توجيه المستخدم بعد رفع الفيديو
+
+    else:
+        form = VideoUploadForm()
+
+    return render(request, 'network/videos.html', {'videos': videos, 'form': form})

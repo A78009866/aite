@@ -2,6 +2,15 @@
 {% block body %}
 <h2>📹 قسم الفيديوهات</h2>
 
+<!-- نموذج رفع الفيديوهات -->
+<form method="post" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">رفع الفيديو</button>
+</form>
+
+<hr>
+
 <div class="row">
     {% for video in videos %}
         <div class="col-md-6 mb-4">
