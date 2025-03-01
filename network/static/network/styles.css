@@ -482,56 +482,25 @@ button[data-bs-toggle="collapse"] {
 
 /* ✅ تصميم بطاقة البروفايل */
 .profile-card {
-    width: 350px;
-    margin: 50px auto; /* ✅ يجعل البطاقة في وسط الصفحة */
-    background: white;
+    width: 300px;
     padding: 20px;
-    text-align: center;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .cover-wrapper {
     width: 100%;
-    height: 150px;
-    background: #f0f0f0;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cover-photo {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
+    height: 100px;
+    background: linear-gradient(90deg, #ddd 25%, #eee 50%, #ddd 75%);
+    border-radius: 10px;
 }
 
 .avatar-wrapper {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(90deg, #ddd 25%, #eee 50%, #ddd 75%);
     border-radius: 50%;
-    overflow: hidden;
-    margin-top: -50px;
-    border: 3px solid white;
-}
-
-.avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-details h2 {
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-.profile-details p {
-    font-size: 14px;
-    color: #666;
+    margin: -40px auto 10px;
 }
