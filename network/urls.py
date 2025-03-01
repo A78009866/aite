@@ -25,6 +25,7 @@ urlpatterns = [
     path('messages/<int:user_id>/', views.messages, name='messages'),
     path('message_list/', views.message_list, name='message_list'),
     path('profile/<str:username>/', profile_view, name='profile'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
     path('splash/', views.splash, name='splash'),
 ]
 
