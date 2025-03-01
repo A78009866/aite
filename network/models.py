@@ -2,9 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
+# ✅ نموذج المستخدم المخصص
 class User(AbstractUser):
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='network_user_groups',
@@ -21,30 +23,33 @@ class User(AbstractUser):
         verbose_name='user permissions',
     )
 
-class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    body = models.TextField()
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Post by {self.user.username} at {self.timestamp}"
-
+# ✅ نموذج البروفايل
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     cover_photo = models.ImageField(upload_to='cover_photos/', blank=True, null=True)
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)
-    friends = models.ManyToManyField("self", blank=True)
+
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
+# ✅ نموذج المنشورات
+class Post(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
+    body = models.TextField()
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
 
+    def __str__(self):
+        return f"Post by {self.user.username} at {self.timestamp}"
+
+# ✅ نموذج الإعجاب
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -53,8 +58,9 @@ class Like(models.Model):
     def __str__(self):
         return f"Like by {self.user.username} on {self.post}"
 
+# ✅ نموذج التعليقات
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -62,18 +68,20 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment by {self.user.username} on {self.post}"
 
+# ✅ نموذج طلبات الصداقة
 class FriendRequest(models.Model):
-    from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
+    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sent_requests', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='received_requests', on_delete=models.CASCADE)
     accepted = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Friend request from {self.from_user.username} to {self.to_user.username}"
 
+# ✅ نموذج الرسائل
 class Message(models.Model):
-    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='received_messages', on_delete=models.CASCADE)
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
