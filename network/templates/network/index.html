@@ -46,17 +46,7 @@
             <img src="{{ post.image.url }}" class="img-fluid rounded">
         {% endif %}
 
-        <!-- زر الإعجاب -->
-        <div class="d-flex align-items-center mt-2">
-            <form method="post" action="{% url 'like_post' post.id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-primary btn-sm">
-                    👍 {{ post.likes.count }} إعجاب
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
+       
 
 {% empty %}
     <p>لا توجد منشورات بعد.</p>
