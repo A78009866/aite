@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.urls import path
 from .views import profile_view, edit_profile  # ✅ تأكد من استيراد edit_profile هنا
+from .views import videos
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),  
     path('register/', views.register, name='register'),
     path('users/', views.users_list, name='users'),
+    path('videos/', videos, name='videos'),
     path('send_friend_request/<int:user_id>/', views.send_friend_request, name='send_friend_request'),
     path('accept_friend_request/<int:request_id>/', views.accept_friend_request, name='accept_friend_request'),
     path('reject_friend_request/<int:request_id>/', views.reject_friend_request, name='reject_friend_request'),

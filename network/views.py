@@ -168,3 +168,10 @@ def splash(request):
 
 def users(request):
     return render(request, 'network/users.html')
+
+from django.shortcuts import render
+from .models import Video
+
+def videos(request):
+    videos = Video.objects.all()
+    return render(request, 'network/videos.html', {'videos': videos})
