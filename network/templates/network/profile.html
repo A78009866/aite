@@ -1,16 +1,8 @@
 {% extends 'network/layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملف المستخدم - {{ profile.user.username }}</title>
-    <link rel="stylesheet" href="{% static 'network/styles.css' %}">
-</head>
-<body>
-    <div class="container"></div>
+
+{% block body %}
+<div class="container">
     <div class="profile-card">
         <div class="cover-wrapper">
             {% if profile.cover_photo %}
@@ -34,5 +26,5 @@
             <p>📍 {{ profile.location|default:"غير محدد" }}</p>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
