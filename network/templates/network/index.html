@@ -17,39 +17,38 @@
 
 <hr>
 
-{% for post in posts %}  <!-- ✅ إصلاح الحلقة -->
-<div class="card mb-4">
-    <div class="card-body">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <a href="{% url 'profile' post.user.username %}">
-                    {% if post.user.profile.profile_picture %}
-                        <img src="{{ post.user.profile.profile_picture.url }}" class="profile-picture rounded-circle me-2" alt="بروفايل">
-                    {% else %}
-                        <img src="{% static 'network/default_profile.png' %}" class="profile-picture rounded-circle me-2" alt="بروفايل افتراضي">
-                    {% endif %}
-                </a>
-                <h5 class="card-title m-0">{{ post.user.username }}</h5>
+{% for post in posts %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'profile' post.user.username %}">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" class="profile-picture rounded-circle me-2" alt="بروفايل">
+                        {% else %}
+                            <img src="{% static 'network/default_profile.png' %}" class="profile-picture rounded-circle me-2" alt="بروفايل افتراضي">
+                        {% endif %}
+                    </a>
+                    <h5 class="card-title m-0">{{ post.user.username }}</h5>
+                </div>
+
+                <!-- زر الحذف يظهر فقط لصاحب المنشور -->
+                {% if post.user == request.user %}
+                    <form method="post" action="{% url 'delete_post' post.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                    </form>
+                {% endif %}
             </div>
 
-            <!-- زر الحذف يظهر فقط لصاحب المنشور -->
-            {% if post.user == request.user %}
-                <form method="post" action="{% url 'delete_post' post.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-                </form>
+            <p class="card-text">{{ post.body }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-fluid rounded">
             {% endif %}
-        </div>
-
-        <p class="card-text">{{ post.body }}</p>
-        {% if post.image %}
-            <img src="{{ post.image.url }}" class="img-fluid rounded">
-        {% endif %}
-
-       
-
+        </div>  <!-- ✅ إغلاق `card-body` -->
+    </div>  <!-- ✅ إغلاق `card` -->
 {% empty %}
     <p>لا توجد منشورات بعد.</p>
-{% endfor %} <!-- ✅ نهاية الحلقة -->
+{% endfor %}
 
 {% endblock %}
