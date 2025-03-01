@@ -536,3 +536,12 @@ button[data-bs-toggle="collapse"] {
     object-fit: cover;
     border: 2px solid #ddd;
 }
+
+.profile-picture-navbar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+

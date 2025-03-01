@@ -29,6 +29,15 @@
                                 <i class="fas fa-users"></i> الناس لي مسجلين
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' user.username %}">
+                                {% if user.profile.profile_picture %}
+                                    <img src="{{ user.profile.profile_picture.url }}" class="profile-picture-navbar rounded-circle me-2" alt="بروفايل">
+                                {% else %}
+                                    <img src="{% static 'network/default_profile.png' %}" class="profile-picture-navbar rounded-circle me-2" alt="بروفايل افتراضي">
+                                {% endif %}
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
