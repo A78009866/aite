@@ -41,32 +41,10 @@ class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
 
     def __str__(self):
         return f"Post by {self.user.username} at {self.timestamp}"
 
-# ✅ نموذج الإعجاب
-class Like(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('user', 'post')  # منع الإعجاب المتكرر
-
-    def __str__(self):
-        return f"Like by {self.user.username} on {self.post}"
-
-# ✅ نموذج التعليقات
-class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    body = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Comment by {self.user.username} on {self.post}"
 
 # ✅ نموذج طلبات الصداقة
 class FriendRequest(models.Model):

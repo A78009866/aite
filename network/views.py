@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from .models import User, Post, FriendRequest, Message, Like, Comment
+from .models import User, Post, FriendRequest, Message
 from .forms import PostForm
 
 def index(request):
@@ -68,52 +68,6 @@ def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, user=request.user)
     post.delete()
     return redirect('index')
-
-from django.http import JsonResponse
-
-@login_required
-def like_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    like, created = Like.objects.get_or_create(user=request.user, post=post)
-    if not created:
-        like.delete()
-    return JsonResponse({
-        'success': True,
-        'liked': created,
-        'like_count': post.likes.count()
-    })
-
-@login_required
-def add_comment(request, post_id):
-    if request.method == "POST":
-        post = get_object_or_404(Post, id=post_id)
-        body = request.POST.get("body")
-        if body:
-            comment = Comment.objects.create(user=request.user, post=post, body=body)
-            return JsonResponse({
-                'success': True,
-                'username': comment.user.username,
-                'body': comment.body,
-                'timestamp': comment.timestamp.strftime('%Y-%m-%d %H:%M:%S')
-            })
-    return JsonResponse({'success': False})
-
-@login_required
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id, user=request.user)
-    comment.delete()
-    return redirect('index')
-
-@login_required
-def edit_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id, user=request.user)
-    if request.method == "POST":
-        body = request.POST.get("body")
-        if body:
-            comment.body = body
-            comment.save()
-            return redirect('index')
-    return render(request, 'network/edit_comment.html', {'comment': comment})
 
 @login_required
 def users_list(request):
