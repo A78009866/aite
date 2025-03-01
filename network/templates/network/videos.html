@@ -2,31 +2,45 @@
 {% block body %}
 <h2>📹 قسم الفيديوهات</h2>
 
-<!-- نموذج رفع الفيديوهات -->
-<form method="post" enctype="multipart/form-data" class="mb-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">رفع الفيديو</button>
-</form>
-
-<hr>
-
 <div class="row">
-    {% for video in videos %}
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <video width="100%" controls>
-                    <source src="{{ video.file.url }}" type="video/mp4">
-                    المتصفح لا يدعم تشغيل الفيديو.
-                </video>
-                <div class="card-body">
-                    <h5 class="card-title">{{ video.title }}</h5>
-                    <p class="card-text">{{ video.description }}</p>
-                </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <video width="100%" controls>
+                <source src="{% static 'videos/video1.mp4' %}" type="video/mp4">
+                المتصفح لا يدعم تشغيل الفيديو.
+            </video>
+            <div class="card-body">
+                <h5 class="card-title">عنوان الفيديو الأول</h5>
+                <p class="card-text">وصف قصير عن الفيديو الأول.</p>
             </div>
         </div>
-    {% empty %}
-        <p>لا توجد فيديوهات بعد.</p>
-    {% endfor %}
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <video width="100%" controls>
+                <source src="{% static 'videos/video2.mp4' %}" type="video/mp4">
+                المتصفح لا يدعم تشغيل الفيديو.
+            </video>
+            <div class="card-body">
+                <h5 class="card-title">عنوان الفيديو الثاني</h5>
+                <p class="card-text">وصف قصير عن الفيديو الثاني.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <video width="100%" controls>
+                <source src="{% static 'videos/video3.mp4' %}" type="video/mp4">
+                المتصفح لا يدعم تشغيل الفيديو.
+            </video>
+            <div class="card-body">
+                <h5 class="card-title">عنوان الفيديو الثالث</h5>
+                <p class="card-text">وصف قصير عن الفيديو الثالث.</p>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
