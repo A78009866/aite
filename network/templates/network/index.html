@@ -1,6 +1,6 @@
 {% extends 'network/layout.html' %}
-{% block body %}
 {% load static %}
+{% block body %}
 <h2>الصفحة الرئيسية</h2>
 
 <form method="post" action="{% url 'add_post' %}" enctype="multipart/form-data" class="mb-4">
@@ -34,65 +34,62 @@
             <img src="{{ post.image.url }}" class="img-fluid rounded">
         {% endif %}
     </div>
-</div>
- <!-- ✅ أزرار التفاعل -->
- <div class="d-flex justify-content-between align-items-center mt-3">
-    <!-- زر الحذف (أقصى اليسار) -->
-    {% if post.user == request.user %}
-        <form method="post" action="{% url 'delete_post' post.id %}" class="delete-post-form">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-        </form>
-    {% else %}
-        <div></div> <!-- مساحة فارغة -->
-    {% endif %}
+    <!-- ✅ أزرار التفاعل -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <!-- زر الحذف (أقصى اليسار) -->
+        {% if post.user == request.user %}
+            <form method="post" action="{% url 'delete_post' post.id %}" class="delete-post-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+            </form>
+        {% else %}
+            <div></div> <!-- مساحة فارغة -->
+        {% endif %}
 
-    <!-- زر التعليقات (في الوسط) -->
-    <button class="btn btn-link text-decoration-none p-0 me-2" data-bs-toggle="collapse" data-bs-target="#comments-{{ post.id }}">
-        علق
-    </button>
-
-    <!-- زر الإعجاب (أقصى اليمين) -->
-    <form method="post" action="{% url 'like_post' post.id %}" class="like-post-form">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-link text-decoration-none p-0">
-            {% if request.user in post.likes.all %}
-                ❤️
-            {% else %}
-                🤍
-            {% endif %}
+        <!-- زر التعليقات (في الوسط) -->
+        <button class="btn btn-link text-decoration-none p-0 me-2" data-bs-toggle="collapse" data-bs-target="#comments-{{ post.id }}">
+            علق
         </button>
-    </form>
-</div>
-{% endif %}
-<!-- ✅ عدد الإعجابات -->
-<div class="mt-2 text-end">
-    <small class="text-muted">{{ post.likes.count }} إعجابات</small>
-</div>
 
-<!-- ✅ قسم التعليقات -->
-<div class="collapse mt-3" id="comments-{{ post.id }}">
-    <form method="post" action="{% url 'add_comment' post.id %}" class="add-comment-form">
-        {% csrf_token %}
-        <div class="input-group">
-            <input type="text" name="body" class="form-control" placeholder="اكتب تعليقًا..." required>
-            <button type="submit" class="btn btn-primary">إرسال</button>
-        </div>
-    </form>
-    <div class="mt-3">
-        {% for comment in post.comments.all %}
-            <div class="card mb-2">
-                <div class="card-body">
-                    <strong>{{ comment.user.username }}</strong>: {{ comment.body }}
-                    <small class="text-muted">{{ comment.timestamp }}</small>
-                </div>
+        <!-- زر الإعجاب (أقصى اليمين) -->
+        <form method="post" action="{% url 'like_post' post.id %}" class="like-post-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link text-decoration-none p-0">
+                {% if request.user in post.likes.all %}
+                    ❤️
+                {% else %}
+                    🤍
+                {% endif %}
+            </button>
+        </form>
+    </div>
+    <!-- ✅ عدد الإعجابات -->
+    <div class="mt-2 text-end">
+        <small class="text-muted">{{ post.likes.count }} إعجابات</small>
+    </div>
+
+    <!-- ✅ قسم التعليقات -->
+    <div class="collapse mt-3" id="comments-{{ post.id }}">
+        <form method="post" action="{% url 'add_comment' post.id %}" class="add-comment-form">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="body" class="form-control" placeholder="اكتب تعليقًا..." required>
+                <button type="submit" class="btn btn-primary">إرسال</button>
             </div>
-        {% endfor %}
+        </form>
+        <div class="mt-3">
+            {% for comment in post.comments.all %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <strong>{{ comment.user.username }}</strong>: {{ comment.body }}
+                        <small class="text-muted">{{ comment.timestamp }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
-</div>
-</div>
-
+{% endfor %}
 {% empty %}
     <p>لا توجد منشورات بعد.</p>
 {% endfor %}
