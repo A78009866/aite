@@ -535,3 +535,10 @@ button[data-bs-toggle="collapse"] {
     font-size: 14px;
     color: #666;
 }
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}

@@ -17,24 +17,25 @@
 <hr>
 
 {% for post in posts %}
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <a href="{% url 'profile' post.user.username %}">
-                    {% if post.user.profile_picture %}
-                        <img src="{{ post.user.profile_picture.url }}" class="profile-picture rounded-circle" alt="بروفايل">
-                    {% else %}
-                        <img src="{% static 'network/default_profile.png' %}" class="profile-picture rounded-circle" alt="بروفايل افتراضي">
-                    {% endif %}
-                </a>
-                <h5 class="card-title ms-2">{{ post.user.username }}</h5>
-            </div>
-            <p class="card-text">{{ post.body }}</p>
-            {% if post.image %}
-                <img src="{{ post.image.url }}" class="img-fluid rounded">
-            {% endif %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <a href="{% url 'profile' post.user.username %}">
+                {% if post.user.profile_picture %}
+                    <img src="{{ post.user.profile_picture.url }}" class="profile-picture rounded-circle me-2" alt="بروفايل">
+                {% else %}
+                    <img src="{% static 'network/default_profile.png' %}" class="profile-picture rounded-circle me-2" alt="بروفايل افتراضي">
+                {% endif %}
+            </a>
+            <h5 class="card-title m-0">{{ post.user.username }}</h5>
         </div>
+        <p class="card-text">{{ post.body }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="img-fluid rounded">
+        {% endif %}
     </div>
+</div>
+
 {% empty %}
     <p>لا توجد منشورات بعد.</p>
 {% endfor %}
