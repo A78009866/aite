@@ -3,7 +3,8 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import profile_view
+from django.urls import path
+from .views import profile_view, edit_profile  # ✅ تأكد من استيراد edit_profile هنا
 
 urlpatterns = [
     path('', views.index, name='index'),
