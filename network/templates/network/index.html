@@ -1,5 +1,4 @@
 {% extends 'network/layout.html' %}
-
 {% block body %}
 {% load static %}
 <h2>الصفحة الرئيسية</h2>
@@ -22,7 +21,11 @@
         <div class="card-body">
             <div class="d-flex align-items-center">
                 <a href="{% url 'profile' post.user.username %}">
-                    <img src="{{ post.user.profile_picture.url }}" class="profile-picture" alt="بروفايل">
+                    {% if post.user.profile_picture %}
+                        <img src="{{ post.user.profile_picture.url }}" class="profile-picture rounded-circle" alt="بروفايل">
+                    {% else %}
+                        <img src="{% static 'network/default_profile.png' %}" class="profile-picture rounded-circle" alt="بروفايل افتراضي">
+                    {% endif %}
                 </a>
                 <h5 class="card-title ms-2">{{ post.user.username }}</h5>
             </div>

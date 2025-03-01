@@ -173,13 +173,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import ProfileUpdateForm
 
-from django.shortcuts import render
-from .models import Profile
-from .models import Profile
+from django.shortcuts import render, get_object_or_404
+from .models import Profile, User
 
 def profile_view(request, username):
-    profile = get_object_or_404(Profile, user__username=username)
+    user = get_object_or_404(User, username=username)
+    profile, created = Profile.objects.get_or_create(user=user)
     return render(request, "network/profile.html", {"profile": profile})
+
 
 
 from django.shortcuts import render
