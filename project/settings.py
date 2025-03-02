@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import cloudinary_storage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -7,7 +8,7 @@ SECRET_KEY = 'your-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://aiter.onrender.com/index/']
 
 INSTALLED_APPS = [
     'network',
@@ -18,6 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +88,14 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # إعدادات الوسائط (Media)
 MEDIA_URL = '/media/'
+# Cloudinary settings
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'duixjs8az',  # استبدلها بـ Cloud Name الخاص بك
+    'API_KEY': '143978951428697',        # استبدلها بـ API Key الخاص بك
+    'API_SECRET': '9dX6eIvntdtGQIU7oXGMSRG9I2o',  # استبدلها بـ API Secret الخاص بك
+}
+
+# اجعل Cloudinary مخزن الملفات الافتراضي
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'network.User'
