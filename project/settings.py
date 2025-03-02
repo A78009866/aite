@@ -94,6 +94,8 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': '9dX6eIvntdtGQIU7oXGMSRG9I2o',  # استبدلها بـ API Secret الخاص بك
 }
 
+MEDIA_URL = '/media/'
+
 # اجعل Cloudinary مخزن الملفات الافتراضي
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
