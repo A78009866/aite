@@ -26,8 +26,8 @@ class User(AbstractUser):
 # ✅ نموذج البروفايل
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-    cover_photo = models.ImageField(upload_to='cover_photos/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='posts/', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='posts/', blank=True, null=True)
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)
 
@@ -39,7 +39,7 @@ class Profile(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     body = models.TextField()
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='posts/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
