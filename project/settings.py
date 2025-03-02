@@ -86,8 +86,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'network/static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# إعدادات الوسائط (Media)
-MEDIA_URL = '/media/'
+
 # Cloudinary settings
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'duixjs8az',  # استبدلها بـ Cloud Name الخاص بك
