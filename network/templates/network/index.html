@@ -43,7 +43,7 @@
 
             <p class="card-text">{{ post.body }}</p>
             {% if post.image %}
-                <img src="{{ post.image.url }}" class="img-fluid rounded">
+            <img src="{% cloudinary_url post.image.url %}" alt="{{ post.title }}">
             {% endif %}
         </div>  <!-- ✅ إغلاق `card-body` -->
     </div>  <!-- ✅ إغلاق `card` -->
