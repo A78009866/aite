@@ -8,7 +8,7 @@ SECRET_KEY = 'your-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://aiter.onrender.com/index/']
+ALLOWED_HOSTS = ['aiter.onrender.com']
 
 INSTALLED_APPS = [
     'network',
